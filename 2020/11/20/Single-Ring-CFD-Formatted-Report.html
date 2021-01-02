@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Single Ring Cfd Formatted Report | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Single Ring Cfd Formatted Report" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A CFD Write Up by Dev Patel Robot Uprising FTC 14607 Alexandria, VA robotuprising.org Fluid Flow Simulation Project Report Dev Patel ∙ 2021dpatel@gmail.com SOLIDWORKS Flow Simulation Project Report January 1, 2021 Learn more about SOLIDWORKS Flow Simulation" />
+<meta property="og:description" content="A CFD Write Up by Dev Patel Robot Uprising FTC 14607 Alexandria, VA robotuprising.org Fluid Flow Simulation Project Report Dev Patel ∙ 2021dpatel@gmail.com SOLIDWORKS Flow Simulation Project Report January 1, 2021 Learn more about SOLIDWORKS Flow Simulation" />
+<link rel="canonical" href="https://moonbeam87.github.io/fastpages/2020/11/20/Single-Ring-CFD-Formatted-Report.html" />
+<meta property="og:url" content="https://moonbeam87.github.io/fastpages/2020/11/20/Single-Ring-CFD-Formatted-Report.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"A CFD Write Up by Dev Patel Robot Uprising FTC 14607 Alexandria, VA robotuprising.org Fluid Flow Simulation Project Report Dev Patel ∙ 2021dpatel@gmail.com SOLIDWORKS Flow Simulation Project Report January 1, 2021 Learn more about SOLIDWORKS Flow Simulation","url":"https://moonbeam87.github.io/fastpages/2020/11/20/Single-Ring-CFD-Formatted-Report.html","@type":"BlogPosting","headline":"Single Ring Cfd Formatted Report","dateModified":"2020-11-20T00:00:00-06:00","datePublished":"2020-11-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://moonbeam87.github.io/fastpages/2020/11/20/Single-Ring-CFD-Formatted-Report.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://moonbeam87.github.io/fastpages/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/fastpages/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpages/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpages/about/">About Me</a><a class="page-link" href="/fastpages/search/">Search</a><a class="page-link" href="/fastpages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Single Ring Cfd Formatted Report</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-20T00:00:00-06:00" itemprop="datePublished">
+        Nov 20, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <table>
+<thead>
+<tr class="header">
+<th><em>A CFD Write Up by Dev Patel</em></th>
+<th><img src="assets/img/2020-11-20-Single-Ring-CFD-Formatted-Report/media/image1.png" style="width:2.26875in;height:1.00903in" alt="Description: Description: sw_vert_gray_short" /></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Robot Uprising FTC 14607</td>
+<td>Alexandria, VA</td>
+<td><blockquote>
+<p>robotuprising.org</p>
+</blockquote></td>
+<td>Fluid Flow Simulation Project Report</td>
+</tr>
+<tr class="even">
+<td><table>
+<tbody>
+<tr class="odd">
+<td><img src="assets/img/2020-11-20-Single-Ring-CFD-Formatted-Report/media/image2.png" style="width:7.5in;height:0.34167in" /> Dev Patel ∙</td>
+<td>2021dpatel@gmail.com</td>
+<td></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><p><strong>SOLIDWORKS Flow Simulation</strong></p>
+<p><strong>Project Report</strong></p>
+<p>January 1, 2021</p>
+<p><img src="assets/img/2020-11-20-Single-Ring-CFD-Formatted-Report/media/image3.bmp" style="width:7.35208in;height:3.82014in" /></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong><a href="https://www.solidworks.com/sw/products/simulation/flow-simulation.htm">Learn more about SOLIDWORKS Flow Simulation</a></strong> <img src="assets/img/2020-11-20-Single-Ring-CFD-Formatted-Report/media/image4.png" style="width:0.125in;height:0.125in" /></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p># <br />
+Table of Contents</p>
+
+<p><a href="#general-information">1 General Information 1</a></p>
+
+<p><a href="#analysis-environment">1.1 Analysis Environment 1</a></p>
+
+<p><a href="#model-information">1.2 Model Information 1</a></p>
+
+<p><a href="#project-comments">1.3 Project Comments: 1</a></p>
+
+<p><a href="#size-of-computational-domain">1.4 Size of Computational Domain 1</a></p>
+
+<p><a href="#simulation-parameters">1.5 Simulation Parameters 1</a></p>
+
+<p><a href="#mesh-settings">1.5.1 Mesh Settings 1</a></p>
+
+<p><a href="#material-settings">1.5.2 Material Settings 2</a></p>
+
+<p><a href="#initial-conditions">1.5.3 Initial Conditions 2</a></p>
+
+<p><a href="#boundary-conditions">1.5.4 Boundary Conditions 2</a></p>
+
+<p><a href="#volumetric-heat-sources">1.5.5 Volumetric Heat Sources 2</a></p>
+
+<p><a href="#engineering-goals">1.5.6 Engineering Goals 2</a></p>
+
+<p><a href="#analysis-time">1.6 Analysis Time 2</a></p>
+
+<p><a href="#results">2 Results 2</a></p>
+
+<p><a href="#analysis-goals">2.1 Analysis Goals 2</a></p>
+
+<blockquote>
+  <p><a href="#global-min-max-table">2.2 Global Min-Max-Table 2</a></p>
+</blockquote>
+
+<p><a href="#results-1">2.3 Results 2</a></p>
+
+<p><a href="#appendix">3 Appendix 2</a></p>
+
+<p><a href="#material-data">3.1 Material Data 2</a></p>
+
+<h1 id="general-information">General Information</h1>
+
+<p><strong>Objective of the simulation</strong>: The objective of this simulation was to determine the drag coefficient of the Ultimate Goal FTC Ring, and to visualize airflow of the ring at launch speed.</p>
+
+<h2 id="analysis-environment">Analysis Environment</h2>
+
+<p>Software Product: Flow Simulation 2020 3.0. Build: 4921</p>
+
+<p>CPU Type: Intel(R) Xeon(R) CPU E5-1620 v3 @ 3.50GHz</p>
+
+<p>CPU Speed: 3501 MHz</p>
+
+<p>RAM: 32690 MB / 18463 MB</p>
+
+<p>Operating System: Windows 10 (or higher) (Version 10.0.18362)</p>
+
+<h2 id="model-information">Model Information</h2>
+
+<p>Model Name: Drag-Ring.SLDPRT</p>
+
+<p>Project Name: Project(1)</p>
+
+<h2 id="project-comments">Project Comments:</h2>
+
+<p>Unit System: SI (m-kg-s)</p>
+
+<p>Analysis Type: External (not exclude internal spaces)</p>
+
+<h2 id="size-of-computational-domain">Size of Computational Domain</h2>
+
+<p>Size</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>X min</th>
+      <th>-0.121 m</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X max</td>
+      <td>0.159 m</td>
+    </tr>
+    <tr>
+      <td>Y min</td>
+      <td>-0.067 m</td>
+    </tr>
+    <tr>
+      <td>Y max</td>
+      <td>0.067 m</td>
+    </tr>
+    <tr>
+      <td>Z min</td>
+      <td>-0.121 m</td>
+    </tr>
+    <tr>
+      <td>Z max</td>
+      <td>0.121 m</td>
+    </tr>
+    <tr>
+      <td>X size</td>
+      <td>0.279 m</td>
+    </tr>
+    <tr>
+      <td>Y size</td>
+      <td>0.133 m</td>
+    </tr>
+    <tr>
+      <td>Z size</td>
+      <td>0.241 m</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="simulation-parameters">Simulation Parameters</h2>
+
+<h3 id="mesh-settings">Mesh Settings</h3>
+
+<h4 id="basic-mesh">Basic Mesh</h4>
+
+<p>Basic Mesh Dimensions</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of cells in X</th>
+      <th>68</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Number of cells in Y</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>Number of cells in Z</td>
+      <td>58</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="analysis-mesh">Analysis Mesh</h4>
+
+<p>Total Cell count: 124136</p>
+
+<p>Fluid Cells: 124136</p>
+
+<p>Solid Cells: 4836</p>
+
+<p>Partial Cells: 2764</p>
+
+<p>Trimmed Cells: 0</p>
+
+<h4 id="additional-physical-calculation-options">Additional Physical Calculation Options</h4>
+
+<p>Heat Transfer Analysis: Heat conduction in solids: Off</p>
+
+<p>Flow Type: Laminar and turbulent</p>
+
+<p>Time-Dependent Analysis: Off</p>
+
+<p>Gravity: Off</p>
+
+<p>Radiation:</p>
+
+<p>Humidity: Off</p>
+
+<p>Default Wall Roughness: 0 micrometer</p>
+
+<h3 id="material-settings">Material Settings</h3>
+
+<p>Material Settings</p>
+
+<p>Fluids</p>
+
+<p><a href="#DED6BB3486CE468C9117E708574D865C">Air</a></p>
+
+<h3 id="initial-conditions">Initial Conditions</h3>
+
+<p>Ambient Conditions</p>
+
+<table>
+<thead>
+<tr class="header">
+<th>Thermodynamic parameters</th>
+<th><p>Static Pressure: 101325.00 Pa</p>
+<p>Temperature: 293.20 K</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Velocity parameters</td>
+<td><p>Velocity vector</p>
+<p>Velocity in X direction: 5.500 m/s</p>
+<p>Velocity in Y direction: 0 m/s</p>
+<p>Velocity in Z direction: 0 m/s</p></td>
+</tr>
+<tr class="even">
+<td>Turbulence parameters</td>
+<td><p>Turbulence intensity and length</p>
+<p>Intensity: 0.10 %</p>
+<p>Length: 1.905e-04 m</p></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="boundary-conditions">Boundary Conditions</h3>
+
+<h3 id="volumetric-heat-sources">Volumetric Heat Sources</h3>
+
+<h3 id="engineering-goals">Engineering Goals</h3>
+
+<p>Goals</p>
+
+<p>Global Goals</p>
+
+<p>GG Force (X) 1</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Global Goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Goal type</td>
+      <td>Force (X)</td>
+    </tr>
+    <tr>
+      <td>Coordinate system</td>
+      <td>Global coordinate system</td>
+    </tr>
+    <tr>
+      <td>Use in convergence</td>
+      <td>On</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Equation Goals</p>
+
+<p>Equation Goal 1</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Equation Goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Formula</td>
+      <td>GG Force (X) 1*2/(0.0249*1.204*(5.5)^2)</td>
+    </tr>
+    <tr>
+      <td>Dimensionality</td>
+      <td>Force</td>
+    </tr>
+    <tr>
+      <td>Use in convergence</td>
+      <td>On</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="analysis-time">Analysis Time</h2>
+
+<p>Calculation Time: 0 s</p>
+
+<p>Number of Iterations: 182</p>
+
+<p>Warnings:</p>
+
+<p>#</p>
+
+<h1 id="results">Results</h1>
+
+<h2 id="analysis-goals">Analysis Goals</h2>
+
+<p>Goals</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Unit</th>
+      <th>Value</th>
+      <th>Progress</th>
+      <th>Criteria</th>
+      <th>Delta</th>
+      <th>Use in convergence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GG Force (X) 1</td>
+      <td>N</td>
+      <td>0.025</td>
+      <td>100</td>
+      <td>0.000698638676</td>
+      <td>0.000630624299</td>
+      <td>On</td>
+    </tr>
+    <tr>
+      <td>Equation Goal 1</td>
+      <td>N</td>
+      <td>0.055</td>
+      <td>100</td>
+      <td>0.00154074727</td>
+      <td>0.00139075133</td>
+      <td>On</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="global-min-max-table">Global Min-Max-Table</h2>
+
+<p>Min/Max Table</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Minimum</th>
+      <th>Maximum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Density (Fluid) [kg/m^3]</td>
+      <td>1.20</td>
+      <td>1.20</td>
+    </tr>
+    <tr>
+      <td>Pressure [Pa]</td>
+      <td>101290.97</td>
+      <td>101345.85</td>
+    </tr>
+    <tr>
+      <td>Temperature [K]</td>
+      <td>293.19</td>
+      <td>293.21</td>
+    </tr>
+    <tr>
+      <td>Temperature (Fluid) [K]</td>
+      <td>293.19</td>
+      <td>293.21</td>
+    </tr>
+    <tr>
+      <td>Velocity [m/s]</td>
+      <td>0</td>
+      <td>7.204</td>
+    </tr>
+    <tr>
+      <td>Velocity (X) [m/s]</td>
+      <td>-0.919</td>
+      <td>6.876</td>
+    </tr>
+    <tr>
+      <td>Velocity (Y) [m/s]</td>
+      <td>-4.386</td>
+      <td>4.578</td>
+    </tr>
+    <tr>
+      <td>Velocity (Z) [m/s]</td>
+      <td>-3.491</td>
+      <td>3.434</td>
+    </tr>
+    <tr>
+      <td>Mach Number [ ]</td>
+      <td>0</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <td>Velocity RRF [m/s]</td>
+      <td>0</td>
+      <td>7.204</td>
+    </tr>
+    <tr>
+      <td>Velocity RRF (X) [m/s]</td>
+      <td>-0.919</td>
+      <td>6.876</td>
+    </tr>
+    <tr>
+      <td>Velocity RRF (Y) [m/s]</td>
+      <td>-4.386</td>
+      <td>4.578</td>
+    </tr>
+    <tr>
+      <td>Velocity RRF (Z) [m/s]</td>
+      <td>-3.491</td>
+      <td>3.434</td>
+    </tr>
+    <tr>
+      <td>Vorticity [1/s]</td>
+      <td>0.20</td>
+      <td>1843.14</td>
+    </tr>
+    <tr>
+      <td>Relative Pressure [Pa]</td>
+      <td>-34.03</td>
+      <td>20.85</td>
+    </tr>
+    <tr>
+      <td>Shear Stress [Pa]</td>
+      <td>0</td>
+      <td>0.85</td>
+    </tr>
+    <tr>
+      <td>Bottleneck Number [ ]</td>
+      <td>4.1642142e-13</td>
+      <td>1.0000000</td>
+    </tr>
+    <tr>
+      <td>Heat Transfer Coefficient [W/m^2/K]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>ShortCut Number [ ]</td>
+      <td>9.7415646e-13</td>
+      <td>1.0000000</td>
+    </tr>
+    <tr>
+      <td>Surface Heat Flux [W/m^2]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Surface Heat Flux (Convective) [W/m^2]</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Acoustic Power [W/m^3]</td>
+      <td>0</td>
+      <td>3.066e-10</td>
+    </tr>
+    <tr>
+      <td>Acoustic Power Level [dB]</td>
+      <td>0</td>
+      <td>24.87</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="results-1">Results</h2>
+
+<p>As shown in our analysis goals, we found that the overall Drag Coefficient at 5.5 m/s of the ring was about 0.055. We also found interesting results with the flow trajectory visualization. The air is at its fastest (6.2 m/s) as it scales the furthest edge of the cylinder. That high speed movement creates a wind vortex behind the cylinder. The spiraling of the airflow (dirty air) can create turbulence for an object behind it, especially if the object is travelling very close to it. In addition to the dirty air vortex, we also see a pool of slower air inside the cylinder cavity. This pool of air eventually leaks out from the top and bottom of the cylinder, speeding up and entering the vortex. This air pool may affect another cylinder or object travelling just above the cylinder. The air pool has a speed of almost .17 m/s, so it is much slower than the cylinder edge.</p>
+
+<p><img src="https://moonbeam87.github.io/fastpages/assets/img/2020-11-20-Single-Ring-CFD-Formatted-Report/media/image7.bmp" alt="" /></p>
+
+<p>#</p>
+
+<h1 id="appendix">Appendix</h1>
+
+<h2 id="material-data">Material Data</h2>
+
+<p>Engineering Database</p>
+
+<p>Gases</p>
+
+<p><span id="DED6BB3486CE468C9117E708574D865C" class="anchor"></span>Air</p>
+
+<p>Path: Gases Pre-Defined</p>
+
+<p>Specific heat ratio (Cp/Cv): 1.399</p>
+
+<p>Molecular mass: 0.0290 kg/mol</p>
+
+<p>Dynamic viscosity</p>
+
+<p><span class="chart">[CHART]</span></p>
+
+<p>Specific heat (Cp)</p>
+
+<p><span class="chart">[CHART]</span></p>
+
+<p>Thermal conductivity</p>
+
+<p><span class="chart">[CHART]</span></p>
+
+  </div><a class="u-url" href="/fastpages/2020/11/20/Single-Ring-CFD-Formatted-Report.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
