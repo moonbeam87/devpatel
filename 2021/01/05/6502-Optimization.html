@@ -1,0 +1,346 @@
+<h1 id="6502-assembly-optimization">6502 Assembly Optimization</h1>
+
+<p>Recently, I finished part 4 of the 6502 computer vlog by Ben Eater.
+In part 5, Ben wants to optimize the assembly code to write Hello World by adding an SKRAM because it takes up too much space.
+Although I have no doubts that the SKRAM is the most efficient way to optimize the a.out file, I wanted to try to 
+make changes directly to the assembly file.</p>
+
+<p>Lets look at the original code for the “hello_world.s” assembly file:</p>
+<pre><code class="language-assembly">PORTB = $6000
+PORTA = $6001
+DDRB = $6002
+DDRA = $6003
+
+E  = %10000000
+RW = %01000000
+RS = %00100000
+
+  .org $8000
+
+reset:
+  lda #%11111111 ; Set all pins on port B to output
+  sta DDRB
+
+  lda #%11100000 ; Set top 3 pins on port A to output
+  sta DDRA
+
+  lda #%00111000 ; Set 8-bit mode; 2-line display; 5x8 font
+  sta PORTB
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+  lda #E         ; Set E bit to send instruction
+  sta PORTA
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+
+  lda #%00001110 ; Display on; cursor on; blink off
+  sta PORTB
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+  lda #E         ; Set E bit to send instruction
+  sta PORTA
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+
+  lda #%00000110 ; Increment and shift cursor; don't shift display
+  sta PORTB
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+  lda #E         ; Set E bit to send instruction
+  sta PORTA
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+
+  lda #"H"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"e"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"l"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"l"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"o"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #","
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #" "
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"w"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"o"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"r"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"l"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"d"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+  lda #"!"
+  sta PORTB
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+loop:
+  jmp loop
+
+  .org $fffc
+  .word reset
+  .word $0000
+</code></pre>
+
+<p>Looking closely at the code we can see a pattern. After every function set call to the display, we have to reenable the RS, RW, and E
+pins. This is in accordance to the LCD controller datasheet. We load the RS Bit, and store it to the Port A output which the display can read.</p>
+
+<p>We have about two different patterns that repeat. One for the initial display parameters, and the other for the display writing.
+I’ll call the parameter repetition “enable”, and the display write repetition “displaywrite”. We can rewrite the code above to
+leverage methods with the .word function enabled on the compiler. Let’s look at the new code:</p>
+
+<pre><code class="language-assembly">PORTB = $6000
+PORTA = $6001
+DDRB = $6002
+DDRA = $6003
+
+E  = %10000000
+RW = %01000000
+RS = %00100000
+
+  .org $8000
+
+enable:
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+  lda #E         ; Set E bit to send instruction
+  sta PORTA
+  lda #0         ; Clear RS/RW/E bits
+  sta PORTA
+
+datawrite:
+  lda #RS         ; Set RS; Clear RW/E bits
+  sta PORTA
+  lda #(RS | E)   ; Set E bit to send instruction
+  sta PORTA
+  lda #RS         ; Clear E bits
+  sta PORTA
+
+reset:
+  lda #%11111111 ; Set all pins on port B to output
+  sta DDRB
+
+  lda #%11100000 ; Set top 3 pins on port A to output
+  sta DDRA
+
+  lda #%00111000 ; Set 8-bit mode; 2-line display; 5x8 font
+  sta PORTB
+  .word enable
+
+  lda #%00001110 ; Display on; cursor on; blink off
+  sta PORTB
+  .word enable
+
+  lda #%00000110 ; Increment and shift cursor; don't shift display
+  sta PORTB
+  .word enable
+
+  lda #"H"
+  sta PORTB
+  .word datawrite
+
+  lda #"e"
+  sta PORTB
+  .word datawrite
+
+  lda #"l"
+  sta PORTB
+  .word datawrite
+
+  lda #"l"
+  sta PORTB
+  .word datawrite
+
+  lda #"o"
+  sta PORTB
+  .word datawrite
+
+  lda #","
+  sta PORTB
+  .word datawrite
+
+  lda #" "
+  sta PORTB
+  .word datawrite
+
+  lda #"w"
+  sta PORTB
+  .word datawrite
+
+  lda #"o"
+  sta PORTB
+  .word datawrite
+
+  lda #"r"
+  sta PORTB
+  .word datawrite
+
+  lda #"l"
+  sta PORTB
+  .word datawrite
+
+  lda #"d"
+  sta PORTB
+  .word datawrite
+
+  lda #"!"
+  sta PORTB
+  .word datawrite
+
+loop:
+  jmp loop
+
+  .org $fffc
+  .word reset
+  .word $0000
+</code></pre>
+
+<p>As you can see, the overall function of the code did not change at all. All we did was reference a method.
+Referencing a method saves more space then rewriting the code. This is evident in the EEPROM. The original code size was
+almost 355 Bytes. Our new code size is around 155 bytes, giving us almsot 200 bytes more of EEPROM space.</p>
+
+<p>We can visualize our space savings by calling:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hexdump <span class="nt">-C</span> a.out
+</code></pre></div></div>
+<p>This will let us visualize the storage in the EEPROM. The original file looks like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00000000  a9 00 8d 01 60 a9 80 8d  01 60 a9 00 8d 01 60 a9  |....`....`....`.|
+00000010  ff 8d 02 60 a9 e0 8d 03  60 a9 38 8d 00 60 00 80  |...`....`.8..`..|
+00000020  a9 0e 8d 00 60 a9 00 8d  01 60 a9 80 8d 01 60 a9  |....`....`....`.|
+00000030  00 8d 01 60 a9 06 8d 00  60 a9 00 8d 01 60 a9 80  |...`....`....`..|
+00000040  8d 01 60 a9 00 8d 01 60  a9 48 8d 00 60 a9 20 8d  |..`....`.H..`. .|
+00000050  01 60 a9 a0 8d 01 60 a9  20 8d 01 60 a9 65 8d 00  |.`....`. ..`.e..|
+00000060  60 a9 20 8d 01 60 a9 a0  8d 01 60 a9 20 8d 01 60  |`. ..`....`. ..`|
+00000070  a9 6c 8d 00 60 a9 20 8d  01 60 a9 a0 8d 01 60 a9  |.l..`. ..`....`.|
+00000080  20 8d 01 60 a9 6c 8d 00  60 a9 20 8d 01 60 a9 a0  | ..`.l..`. ..`..|
+00000090  8d 01 60 a9 20 8d 01 60  a9 6f 8d 00 60 a9 20 8d  |..`. ..`.o..`. .|
+000000a0  01 60 a9 a0 8d 01 60 a9  20 8d 01 60 a9 2c 8d 00  |.`....`. ..`.,..|
+000000b0  60 a9 20 8d 01 60 a9 a0  8d 01 60 a9 20 8d 01 60  |`. ..`....`. ..`|
+000000c0  a9 20 8d 00 60 a9 20 8d  01 60 a9 a0 8d 01 60 a9  |. ..`. ..`....`.|
+000000d0  20 8d 01 60 a9 77 8d 00  60 a9 20 8d 01 60 a9 a0  | ..`.w..`. ..`..|
+000000e0  8d 01 60 a9 20 8d 01 60  a9 6f 8d 00 60 a9 20 8d  |..`. ..`.o..`. .|
+000000f0  01 60 a9 a0 8d 01 60 a9  20 8d 01 60 a9 72 8d 00  |.`....`. ..`.r..|
+00000100  60 a9 20 8d 01 60 a9 a0  8d 01 60 a9 20 8d 01 60  |`. ..`....`. ..`|
+00000110  a9 6c 8d 00 60 a9 20 8d  01 60 a9 a0 8d 01 60 a9  |.l..`. ..`....`.|
+00000120  20 8d 01 60 a9 64 8d 00  60 a9 20 8d 01 60 a9 a0  | ..`.d..`. ..`..|
+00000130  8d 01 60 a9 20 8d 01 60  a9 21 8d 00 60 a9 20 8d  |..`. ..`.!..`. .|
+00000140  01 60 a9 a0 8d 01 60 a9  20 8d 01 60 4c 4c 81 00  |.`....`. ..`LL..|
+00000150  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+00007ff0  00 00 00 00 00 00 00 00  00 00 00 00 0f 80 00 00  |................|
+00008000
+</code></pre></div></div>
+
+<p>Our optimized file looks like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00000000  a9 00 8d 01 60 a9 80 8d  01 60 a9 00 8d 01 60 a9  |....`....`....`.|
+00000010  20 8d 01 60 a9 a0 8d 01  60 a9 20 8d 01 60 a9 ff  | ..`....`. ..`..|
+00000020  8d 02 60 a9 e0 8d 03 60  a9 38 8d 00 60 00 80 a9  |..`....`.8..`...|
+00000030  0e 8d 00 60 00 80 a9 06  8d 00 60 00 80 a9 48 8d  |...`......`...H.|
+00000040  00 60 0f 80 a9 65 8d 00  60 0f 80 a9 6c 8d 00 60  |.`...e..`...l..`|
+00000050  0f 80 a9 6c 8d 00 60 0f  80 a9 6f 8d 00 60 0f 80  |...l..`...o..`..|
+00000060  a9 2c 8d 00 60 0f 80 a9  20 8d 00 60 0f 80 a9 77  |.,..`... ..`...w|
+00000070  8d 00 60 0f 80 a9 6f 8d  00 60 0f 80 a9 72 8d 00  |..`...o..`...r..|
+00000080  60 0f 80 a9 6c 8d 00 60  0f 80 a9 64 8d 00 60 0f  |`...l..`...d..`.|
+00000090  80 a9 21 8d 00 60 0f 80  4c 98 80 00 00 00 00 00  |..!..`..L.......|
+000000a0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+00007ff0  00 00 00 00 00 00 00 00  00 00 00 00 1e 80 00 00  |................|
+00008000
+</code></pre></div></div>
+<p>The SKRAM method is faster and more efficient, but this method saves space and requires no extra hardware.
+However, it would require some port address changing on the EEPROM, and a lot of troubleshooting, so I’ll save the implementation for later.</p>
+
+<p>Thanks for reading!</p>
